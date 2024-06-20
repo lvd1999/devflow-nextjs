@@ -1,29 +1,29 @@
-import {
-  ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import React from "react";
+import { Inter, Space_Grotesk } from "next/font/google";
+import type { Metadata } from "next";
 
-function Header() {
-  return (
-    <header
-      style={{ display: "flex", justifyContent: "space-between", padding: 20 }}
-    >
-      <h1>My App</h1>
-      <SignedIn>
-        {/* Mount the UserButton component */}
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        {/* Signed out users get sign in button */}
-        <SignInButton />
-      </SignedOut>
-    </header>
-  );
-}
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-spaceGrotesk",
+});
+
+export const metadata: Metadata = {
+  title: "DevFlow",
+  description: "DevFlow - A better way to manage your development workflow",
+  // icons: {
+  //   icon: "/assets/images/site-logo.svg",
+  // },
+};
 
 export default function RootLayout({
   children,
@@ -32,9 +32,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ClerkProvider>
+      <ClerkProvider
+        appearance={{
+          elements: {
+            formButtonPrimary: "primary-gradient",
+            footerActionLink: "primary-text-gradient hover:text-primary-500",
+          },
+        }}
+      >
         <html lang="en">
-          <body>{children}</body>
+          <h1 className="h1-bold">Hi</h1>
+          <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
+            {children}
+          </body>
         </html>
       </ClerkProvider>
     </html>
